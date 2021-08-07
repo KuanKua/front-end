@@ -1,39 +1,22 @@
 
-body{
-    margin-top:20px;
-    background:#eee;
-    font-size: 14px;
-}
-
 .avatar {
     position: relative;
     display: inline-block;
     width: 40px;
     white-space: nowrap;
     border-radius: 1000px;
-    vertical-align: bottom
+    vertical-align: bottom;
+
 }
 
-.avatar i {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 10px;
-    height: 10px;
-    border: 2px solid #fff;
-    border-radius: 100%
-}
 
 .avatar img {
     width: 100%;
     max-width: 100%;
     height: auto;
-    border: 0 none;
-    border-radius: 1000px
-}
-
-.avatar-online i {
-    background-color: #4caf50
+    border: 10px;
+    border-radius: 1000px;
+    border-color: white;
 }
 
 .avatar-off i {
@@ -97,4 +80,38 @@ body{
     color: #616161;
     cursor: pointer;
     text-decoration: none;
+}
+
+li.list-group-item{
+    background-color: #000000;
+    color: #FFFFFF;
+    border-color: white;
+    margin-bottom: 5px;
+}
+
+#daily-feed > div.panel-body > button {
+    border-color: white;
+    border-radius: 7px;
+}
+
+#daily-feed > div.panel-body > ul > li > div > div.media-body > h4 > a{
+    color: #FFFFFF;
+}
+
+#daily-feed > div.panel-body > ul > li > div > div.media-body > h4 > small{
+    color: white;
+}
+
+/* .panel-heading{
+    background-color: #000000;
+    color: #FFFFFF;
+    border-color: white;
+}
+
+div.panel-body{
+    border-color: black;
+} */
+
+#main-content > div > div > div > div {
+    margin-left: none;
 }

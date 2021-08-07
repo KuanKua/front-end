@@ -32,7 +32,7 @@ function renderUserProfile(user){
     bio.textContent = user.bio
 
     const address = profilePage.querySelector("#profile-address")
-    address.textContent = user.country_of_residence
+    address.textContent = user.address
 
     mainContent.append(profilePage)
 }
@@ -278,15 +278,15 @@ signupForm.innerHTML = `  <div class="form-group-2">
 </div>
 <br><br>
 <div class="form-group-2">
-<label class="control-label col-sm-2" for="country_of_residence">Country of Residence:</label>
+<label class="control-label col-sm-2" for="address">Address:</label>
 <div class="col-sm-10">
-  <input type="text" class="form-control" id="country_of_residence" name="country_of_residence" placeholder="Enter your country of residence">
+  <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address">
 </div>
 </div>
 <br><br>
 
 <div class="form-group-2" id="linguistic_experience"  style="display: none;" >
-<label class="control-label col-sm-2" for="country_of_residence">Linguistic Experience:</label>
+<label class="control-label col-sm-2" for="address">Linguistic Experience:</label>
 <div class="col-sm-10">
   <textarea type="text" class="form-control" id="linguistic_experience" name="linguistic_experience" placeholder="Describe your linguistic experience"> </textarea>
 </div>
@@ -325,7 +325,7 @@ signupForm.addEventListener('submit', (event) => {
     date_of_birth: event.target.date_of_birth.value,
     nationality: event.target.nationality.value,
     education_status: event.target.education_status.value,
-    country_of_residence: event.target.country_of_residence.value
+    address: event.target.address.value
   }
 
   fetch(`http://127.0.0.1:3000/register`, {
@@ -516,8 +516,6 @@ profilePage.innerHTML = `
         </div>
     </div>
 `
-
-
 
 const contributorsPage = document.createElement("div")
 contributorsPage.innerHTML = `
@@ -720,3 +718,192 @@ contributorsPage.innerHTML = `
     </div>
   </div>
 `
+
+const feedPage = document.createElement('div')
+feedPage.classList.add("container")
+feedPage.innerHTML = `
+<div class="row bootstrap snippets bootdey">
+    <div class="col-md-7 col-xs-12 col-md-offset-3">
+      <div class="panel" id="daily-feed">
+        <div class="panel-heading">
+          <h3 class="panel-title"> <strong> Feed </strong>
+            <span class="pull-right label label-round label-warning" style="color:#ffffff; background-color: #000000;">10 New Activities</span>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group list-group-dividered list-group-full">
+            <li class="list-group-item">
+              <div class="media">
+                <div class="media-left">
+                  <a class="avatar avatar-online" href="javascript:void(0)">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""><i></i></a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">
+                    <small class="pull-right">5m ago</small>
+                    <a class="name">Edward Fletcher</a> posted a new blog.
+                  </h4>
+                  <small>Today 5:50 pm - 12.04.2015</small>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="media">
+                <div class="media-left">
+                  <a class="avatar avatar-online" href="javascript:void(0)">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""><i></i></a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">
+                    <small class="pull-right">5m ago</small>
+                    <a class="name">Edward Fletcher</a> posted a new blog.
+                  </h4>
+                  <small>Today 5:50 pm - 12.04.2015</small>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="media">
+                <div class="media-left">
+                  <a class="avatar avatar-online" href="javascript:void(0)">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""><i></i></a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">
+                    <small class="pull-right">5m ago</small>
+                    <a class="name">Edward Fletcher</a> posted a new blog.
+                  </h4>
+                  <small>Today 5:50 pm - 12.04.2015</small>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+            <div class="media">
+              <div class="media-left">
+                <a class="avatar avatar-online" href="javascript:void(0)">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""><i></i></a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">
+                  <small class="pull-right">5m ago</small>
+                  <a class="name">Edward Fletcher</a> posted a new blog.
+                </h4>
+                <small>Today 5:50 pm - 12.04.2015</small>
+              </div>
+            </div>
+          </li>
+          </ul>
+          <button type="button" class="btn btn-block btn-primary waves-effect waves-light" style="color:white; border-color: white; background-color: black;"><i class="icon md-chevron-down margin-right-5" aria-hidden="true"></i>Show
+            More</button>
+        </div>
+      </div>
+    </div>
+</div>
+`
+
+const navFeed = document.querySelector("#feed")
+navFeed.addEventListener('click', ()=> {
+  resetMainContent()
+  mainContent.append(feedPage)
+})
+
+
+
+const navDirectories = document.querySelector("#directories")
+
+navDirectories.addEventListener('click', ()=> {
+  resetMainContent()
+  
+  fetch("http://127.0.0.1:3000/directories")
+  .then(r => r.json())
+  .then(directories => {
+    renderDirectories(directories)
+  })
+
+})
+
+function renderDirectories(directories){
+
+  let total_entries = 0
+  let created_by = ""
+
+  fetch("http://127.0.0.1:3000/contributions")
+  .then(r => r.json())
+  .then(contributions => {
+    total_entries = contributions.length
+
+    let index = 0
+
+  directories.forEach(directory => {
+    const directoriesPage = document.createElement("div")
+    directoriesPage.innerHTML = `
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container" style="width: 1000px;">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+    
+                <div class="ibox-content forum-container" style="background-color: black; color:white;">
+    
+                    <div class="forum-title">
+                        <div class="pull-right forum-desc">
+                            <samll>Total Entries: ${total_entries}</samll>
+                        </div>
+                        <h3><strong>Directories</strong></h3>
+                        <hr color="white">
+                        <br>
+                    </div>
+                      
+                    <div class="forum-item">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <a href="forum_post.html" class="forum-item-title">${directory.directory_name}</a>
+                                <div class="forum-sub-title"><strong>Language: </strong>${directory.language_name}</div>
+                                <div class="forum-sub-title"><strong>Directory Description: </strong>${directory.database_description}</div>
+                                <div class="forum-sub-title"><strong>Database Description: </strong>${directory.language_description}</div>
+                                <div class="forum-sub-title">Primarily spoken in ${directory.primarily_spoken_at}.</div>
+                            </div>
+                            <div class="col-md-1 forum-info">
+                                <span class="views-number">
+                                    ${directory.views}
+                                </span>
+                                <div>
+                                    <small>Views</small>
+                                </div>
+                            </div>
+                            <div class="col-md-1 forum-info">
+                                <span class="views-number">
+                                    368
+                                </span>
+                                <div>
+                                    <small>Contributors</small>
+                                </div>
+                            </div>
+                            <div class="col-md-1 forum-info">
+                                <span class="views-number">
+                                    140
+                                </span>
+                                <div>
+                                    <small>Entries</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    `
+
+    if (index != 0){
+      directoriesPage.querySelector("div.forum-title").remove()
+    }
+    index++
+    mainContent.append(directoriesPage)
+  })
+
+  })
+
+  
+}
