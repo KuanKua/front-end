@@ -405,3 +405,8 @@ small {
     margin-bottom: 0.6em;
     padding-bottom: 0.6em;
 }
+
+#main-content > div > div > div > div > div.col-md-4.mb-3 > div.card.mt-3{
+    background-color: white;
+    border-color: white;
+}
