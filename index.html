@@ -3,6 +3,8 @@
       <head>
           <title>KuanKua</title>
 
+          <link rel="icon" href="kkfinal.ico">
+
           <link rel="preconnect" href="https://fonts.googleapis.com">
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
           <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -11,6 +13,12 @@
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+          <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+          <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" async
+        integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/"
+        crossorigin="anonymous">
+</script>
 
           <link rel="stylesheet" type="text/css" href="style.css">
       </head>
@@ -39,12 +47,15 @@
           <div class="row content">
             <div class="col-sm-2 sidenav">
               <div class="row">
-                <div class="col-4" style="width: 200px; height: 100%;">
-                  <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
-                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-                    <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
-                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+                <div class="col-4" style="width: 180px; height: 100%; margin-top: 100px; margin-left: 10px; background-color: white; ">
+                  <div class="list-group" style="font-size: 14px"id="list-tab" role="tablist">
+                      <h4 style="color:black; padding-top: 10px; padding-left: 20px; padding-bottom:10px;font-weight:bold; border-radius:7px; border-color: black; border-width:5px; "> Recently Updated Directories </h4>
+                      <a class="list-group-item list-group-item-action active" id="list-first" data-toggle="list" href="#" role="tab" aria-controls="home" style="border-color: white; background-color: black; color:white; border-radius:10px;margin-bottom:10px ;"><button style="border:none;background:none;"></button></a>
+                      <a class="list-group-item list-group-item-action" id="list-second" data-toggle="list" href="#" role="tab" aria-controls="profile" style="border-color: white; background-color: black; color:white ; border-radius:10px;margin-bottom:10px ;"><button style="border:none;background:none;"></button></a>
+                      <a class="list-group-item list-group-item-action" id="list-third" data-toggle="list" href="#" role="tab" aria-controls="messages" style="border-color: white; background-color: black; color:white; border-radius:10px;margin-bottom:10px ;"><button style="border:none;background:none;"></button></a>
+                      <a class="list-group-item list-group-item-action" id="list-fourth" data-toggle="list" href="#" role="tab" aria-controls="settings" style="border-color: white; background-color: black; color:white; border-radius:10px;margin-bottom:10px ;"><button style="border:none;background:none;"></button></a>
+                      <a class="list-group-item list-group-item-action" id="list-fifth" data-toggle="list" href="#" role="tab" aria-controls="settings" style="border-color: white; background-color: black; color:white; border-radius:10px;margin-bottom:10px ;"><button style="border:none;background:none;"></button></a>
+                    
                   </div>
                 </div>
                 <div class="col-8">
@@ -63,7 +74,6 @@
             
           </div>
         </div>
-
           <script src="index.js"></script>
           <script src="profile.js"></script>
       </body>
