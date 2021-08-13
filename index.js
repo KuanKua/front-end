@@ -4,7 +4,7 @@ let listThird = document.querySelector("#list-third")
 let listFourth = document.querySelector("#list-fourth")
 let listFifth = document.querySelector("#list-fifth")
 
-fetch(`http://127.0.0.1:3000/directories/recentfive`)
+fetch(`https://kuankua-api.herokuapp.com/directories/recentfive`)
 .then(r => r.json())
 .then(top5 => {
   listFirst.textContent = top5[0].directory_name
@@ -152,7 +152,7 @@ if (localStorage.token === undefined){
   loginFormSetup()
 } else {
   user_id =localStorage.id
-  fetch(`http://127.0.0.1:3000/users/${user_id}`, {
+  fetch(`https://kuankua-api.herokuapp.com/users/${user_id}`, {
     headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.token}`
@@ -199,7 +199,7 @@ function renderUserProfile(user){
   if (user.id == localStorage.id){
     console.log("HERE AGAIN DOMBI")
 
-    fetch(`http://127.0.0.1:3000/users/${localStorage.id}/directories`, {
+    fetch(`https://kuankua-api.herokuapp.com/users/${localStorage.id}/directories`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.token}`
@@ -248,7 +248,7 @@ function renderUserProfile(user){
     if(localStorage.id != user.id){
       profileFollowBtn.style.display = "inline"
 
-      fetch(`http://127.0.0.1:3000/users/${localStorage.id}/following`, {
+      fetch(`https://kuankua-api.herokuapp.com/users/${localStorage.id}/following`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.token}`
@@ -270,7 +270,7 @@ function renderUserProfile(user){
           profileFollowBtn.style.borderColor = "white"
 
           profileFollowBtn.addEventListener('click', ()=>{
-          fetch(`http://127.0.0.1:3000/users/${localStorage.id}/unfollow/${user.id}`, 
+          fetch(`https://kuankua-api.herokuapp.com/users/${localStorage.id}/unfollow/${user.id}`, 
           {
             method: "POST",
             headers: {
@@ -282,7 +282,7 @@ function renderUserProfile(user){
           })
 
         } else {
-          fetch(`http://127.0.0.1:3000/users/${localStorage.id}/follow/${user.id}`, 
+          fetch(`https://kuankua-api.herokuapp.com/users/${localStorage.id}/follow/${user.id}`, 
         {
           method: "POST",
           headers: {
@@ -314,7 +314,7 @@ function renderUserProfile(user){
     } else {
       regenerateAvatarBtn.style.display = "inline"
       regenerateAvatarBtn.addEventListener('click', ()=>{
-        fetch(`http://127.0.0.1:3000/users/${localStorage.id}/regenerate`, {
+        fetch(`https://kuankua-api.herokuapp.com/users/${localStorage.id}/regenerate`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -334,7 +334,7 @@ function renderUserProfile(user){
       deleteAccountBtn.style.display = "inline"
       deleteAccountBtn.addEventListener('click', ()=> {
 
-        fetch(`http://127.0.0.1:3000/users/${user.id}`, {
+        fetch(`https://kuankua-api.herokuapp.com/users/${user.id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -425,7 +425,7 @@ loginForm.innerHTML = `<img style="display: block;width:130px; margin-left: auto
 loginForm.addEventListener('submit', (event)=>{
     event.preventDefault()
 
-    fetch(`http://127.0.0.1:3000/login`, {
+    fetch(`https://kuankua-api.herokuapp.com/login`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -579,7 +579,7 @@ function renderLoggedInNavBar(user){
     directories.addEventListener('click', ()=> {
       resetMainContent()
       
-      fetch("http://127.0.0.1:3000/directories")
+      fetch("https://kuankua-api.herokuapp.com/directories")
       .then(r => r.json())
       .then(directories => {
         renderDirectories(directories)
@@ -595,7 +595,7 @@ function renderLoggedInNavBar(user){
 
       console.log(user)
       
-      fetch(`http://127.0.0.1:3000/users/${user.id}/activities`, {
+      fetch(`https://kuankua-api.herokuapp.com/users/${user.id}/activities`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.token}`
@@ -849,7 +849,7 @@ signupForm.addEventListener('submit', (event) => {
   console.log("AVATAR")
   console.log(newUser.avatar_address)
 
-  fetch(`http://127.0.0.1:3000/register`, {
+  fetch(`https://kuankua-api.herokuapp.com/register`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -881,7 +881,7 @@ function renderContributorsPage(loggedUser){
   <div class="row"></div></div>`
   const fwRow = following.querySelector("div.row")
 
-  fetch(`http://127.0.0.1:3000/users/${loggedUser.id}/following`, {
+  fetch(`https://kuankua-api.herokuapp.com/users/${loggedUser.id}/following`, {
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${localStorage.token}`
@@ -911,7 +911,7 @@ function renderContributorsPage(loggedUser){
 
         console.log("Unfollow")
 
-        fetch(`http://127.0.0.1:3000/users/${loggedUser.id}/unfollow/${user.id}`, 
+        fetch(`https://kuankua-api.herokuapp.com/users/${loggedUser.id}/unfollow/${user.id}`, 
         {
           method: "POST",
           headers: {
@@ -937,7 +937,7 @@ function renderContributorsPage(loggedUser){
   <div class="row"></div></div>`
   const nfRow = notFollowing.querySelector("div.row")
 
-  fetch(`http://127.0.0.1:3000/users/${loggedUser.id}/notFollowing`, {
+  fetch(`https://kuankua-api.herokuapp.com/users/${loggedUser.id}/notFollowing`, {
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${localStorage.token}`
@@ -953,7 +953,7 @@ function renderContributorsPage(loggedUser){
         followBtn.style.color = "white"
         followBtn.textContent = "Following"
 
-        fetch(`http://127.0.0.1:3000/users/${loggedUser.id}/follow/${user.id}`, 
+        fetch(`https://kuankua-api.herokuapp.com/users/${loggedUser.id}/follow/${user.id}`, 
         {
           method: "POST",
           headers: {
@@ -1035,7 +1035,7 @@ function renderFeed(activities){
 
   activities.forEach(activity => {
 
-    fetch(`http://127.0.0.1:3000/users/${localStorage.id}`, {
+    fetch(`https://kuankua-api.herokuapp.com/users/${localStorage.id}`, {
       headers: {
         "Authorization": `Bearer ${localStorage.token}`
       }
@@ -1099,7 +1099,7 @@ const navDirectories = document.querySelector("#directories")
 navDirectories.addEventListener('click', ()=> {
   resetMainContent()
   
-  fetch("http://127.0.0.1:3000/directories")
+  fetch("https://kuankua-api.herokuapp.com/directories")
   .then(r => r.json())
   .then(directories => {
     renderDirectories(directories)
@@ -1112,7 +1112,7 @@ function renderDirectories(directories){
   let total_entries = 0
   let created_by = ""
 
-  fetch("http://127.0.0.1:3000/contributions")
+  fetch("https://kuankua-api.herokuapp.com/contributions")
   .then(r => r.json())
   .then(contributions => {
     total_entries = contributions.length
@@ -1194,11 +1194,11 @@ function renderDirectories(directories){
     `
     const exportBtn = directoriesPage.querySelector("button#export-btn")
     exportBtn.addEventListener('click', () => {
-      window.open(`http://127.0.0.1:3000/directories/${directory.id}/export`, '_blank');
+      window.open(`https://kuankua-api.herokuapp.com/directories/${directory.id}/export`, '_blank');
     })
 
     const link = directoriesPage.querySelector("#link-area")
-    link.textContent = `http://127.0.0.1:3000/directories/${directory.id}/export`
+    link.textContent = `https://kuankua-api.herokuapp.com/directories/${directory.id}/export`
 
     const copyLink = directoriesPage.querySelector("button#copy-link")
     copyLink.addEventListener('click', () => {
@@ -1223,7 +1223,7 @@ function renderDirectories(directories){
 
       resetMainContent()
 
-      fetch(`http://127.0.0.1:3000/directories/${directory.id}/increaseview`, {
+      fetch(`https://kuankua-api.herokuapp.com/directories/${directory.id}/increaseview`, {
         method: "POST",
         headers: {
           "Content-type": "application/json"
@@ -1233,7 +1233,7 @@ function renderDirectories(directories){
 
   if(directory.directory_type === "Word"){
 
-      fetch(`http://127.0.0.1:3000/directories/${directory.id}/words`)
+      fetch(`https://kuankua-api.herokuapp.com/directories/${directory.id}/words`)
       .then(r=> r.json())
       .then(words => {
 
@@ -1331,7 +1331,7 @@ function renderDirectories(directories){
                   }
                   
                
-                  fetch(`http://127.0.0.1:3000/words`, 
+                  fetch(`https://kuankua-api.herokuapp.com/words`, 
                   {
                     method: "POST",
                     headers: 
@@ -1398,13 +1398,13 @@ function renderDirectories(directories){
           cell12.innerHTML = `<button style="padding: 2px; font-size: 10px; color: black; border-radius: 6px; border-color: black; font-weight: bold;" id="approveBtn">Approve</button>`
 
           //let lastValue
-          fetch(`http://127.0.0.1:3000/words/${word.id}/votes/${localStorage.id}`)
+          fetch(`https://kuankua-api.herokuapp.com/words/${word.id}/votes/${localStorage.id}`)
           .then(r => r.json())
           .then(data => {
             cell11.innerHTML = `${data.votes}`
             let approveButton = cell12.querySelector("#approveBtn")
             approveButton.addEventListener('click', ()=>{
-              fetch(`http://127.0.0.1:3000/words/${word.id}/approve/${localStorage.id}`,
+              fetch(`https://kuankua-api.herokuapp.com/words/${word.id}/approve/${localStorage.id}`,
                 {
                   method: "POST",
                   headers: {
@@ -1481,7 +1481,7 @@ function renderDirectories(directories){
 
     })} else if (directory.directory_type === "Phrase"){
 
-      fetch(`http://127.0.0.1:3000/directories/${directory.id}/phrases`)
+      fetch(`https://kuankua-api.herokuapp.com/directories/${directory.id}/phrases`)
       .then(r=> r.json())
       .then(phrases => {
 
@@ -1580,7 +1580,7 @@ function renderDirectories(directories){
                   }
            
 
-            fetch(`http://127.0.0.1:3000/phrases`, 
+            fetch(`https://kuankua-api.herokuapp.com/phrases`, 
             {
               method: "POST",
               headers: 
@@ -1647,13 +1647,13 @@ function renderDirectories(directories){
           
           //let approveButton = cell12.querySelector("#approveBtn")
 
-          fetch(`http://127.0.0.1:3000/phrases/${phrase.id}/votes/${localStorage.id}`)
+          fetch(`https://kuankua-api.herokuapp.com/phrases/${phrase.id}/votes/${localStorage.id}`)
           .then(r => r.json())
           .then(data => {
             cell11.innerHTML = `0`
             let approveButton = cell12.querySelector("#approveBtn")
             approveButton.addEventListener('click', ()=>{
-              fetch(`http://127.0.0.1:3000/phrases/${phrase.id}/approve/${localStorage.id}`,
+              fetch(`https://kuankua-api.herokuapp.com/phrases/${phrase.id}/approve/${localStorage.id}`,
                 {
                   method: "POST",
                   headers: {
@@ -1671,7 +1671,7 @@ function renderDirectories(directories){
       })
     } else if (directory.directory_type === "Character"){
 
-      fetch(`http://127.0.0.1:3000/directories/${directory.id}/characters`)
+      fetch(`https://kuankua-api.herokuapp.com/directories/${directory.id}/characters`)
       .then(r=> r.json())
       .then(characters => {
 
@@ -1766,7 +1766,7 @@ function renderDirectories(directories){
                     }
                   }
             
-            fetch(`http://127.0.0.1:3000/characters`, 
+            fetch(`https://kuankua-api.herokuapp.com/characters`, 
             {
               method: "POST",
               headers: 
@@ -1827,13 +1827,13 @@ function renderDirectories(directories){
           let cell11 = row.insertCell(11)
           cell11.innerHTML = `<button style="padding: 2px; font-size: 10px; color: black; border-radius: 6px; border-color: black; font-weight: bold;" id="approveBtn">Approve</button>`
           
-          fetch(`http://127.0.0.1:3000/characters/${character.id}/votes/${localStorage.id}`)
+          fetch(`https://kuankua-api.herokuapp.com/characters/${character.id}/votes/${localStorage.id}`)
           .then(r => r.json())
           .then(data => {
             cell10.innerHTML = `0`
             let approveButton = cell11.querySelector("#approveBtn")
             approveButton.addEventListener('click', ()=>{
-              fetch(`http://127.0.0.1:3000/characters/${character.id}/approve/${localStorage.id}`,
+              fetch(`https://kuankua-api.herokuapp.com/characters/${character.id}/approve/${localStorage.id}`,
                 {
                   method: "POST",
                   headers: {
@@ -1852,7 +1852,7 @@ function renderDirectories(directories){
 
     } else if (directory.directory_type === "Sentence"){
 
-      fetch(`http://127.0.0.1:3000/directories/${directory.id}/sentences`)
+      fetch(`https://kuankua-api.herokuapp.com/directories/${directory.id}/sentences`)
       .then(r=> r.json())
       .then(sentences => {
 
@@ -1935,7 +1935,7 @@ function renderDirectories(directories){
 
                   }
 
-            fetch(`http://127.0.0.1:3000/sentences`, 
+            fetch(`https://kuankua-api.herokuapp.com/sentences`, 
             {
               method: "POST",
               headers: 
@@ -1985,13 +1985,13 @@ function renderDirectories(directories){
           let cell7 = row.insertCell(7)
           cell7.innerHTML = `<button style="padding: 2px; font-size: 10px; color: black; border-radius: 6px; border-color: black; font-weight: bold;" id="approveBtn">Approve</button>`
           
-          fetch(`http://127.0.0.1:3000/sentences/${sentence.id}/votes/${localStorage.id}`)
+          fetch(`https://kuankua-api.herokuapp.com/sentences/${sentence.id}/votes/${localStorage.id}`)
           .then(r => r.json())
           .then(data => {
             cell6.innerHTML = `0`
             let approveButton = cell7.querySelector("#approveBtn")
             approveButton.addEventListener('click', ()=>{
-              fetch(`http://127.0.0.1:3000/sentences/${sentence.id}/approve/${localStorage.id}`,
+              fetch(`https://kuankua-api.herokuapp.com/sentences/${sentence.id}/approve/${localStorage.id}`,
                 {
                   method: "POST",
                   headers: {
@@ -2010,7 +2010,7 @@ function renderDirectories(directories){
 
     } else if (directory.directory_type === "Long Text") {
 
-      fetch(`http://127.0.0.1:3000/directories/${directory.id}/longtexts`)
+      fetch(`https://kuankua-api.herokuapp.com/directories/${directory.id}/longtexts`)
       .then(r=> r.json())
       .then(longtexts => {
 
@@ -2095,7 +2095,7 @@ function renderDirectories(directories){
                     }
                   }
 
-            fetch(`http://127.0.0.1:3000/longtexts`, 
+            fetch(`https://kuankua-api.herokuapp.com/longtexts`, 
             {
               method: "POST",
               headers: 
@@ -2144,13 +2144,13 @@ function renderDirectories(directories){
           let cell7 = row.insertCell(7)
           cell7.innerHTML = `<button style="padding: 2px; font-size: 10px; color: black; border-radius: 6px; border-color: black; font-weight: bold;" id="approveBtn">Approve</button>`
           
-          fetch(`http://127.0.0.1:3000/longtexts/${longtext.id}/votes/${localStorage.id}`)
+          fetch(`https://kuankua-api.herokuapp.com/longtexts/${longtext.id}/votes/${localStorage.id}`)
           .then(r => r.json())
           .then(data => {
             cell6.innerHTML = `0`
             let approveButton = cell7.querySelector("#approveBtn")
             approveButton.addEventListener('click', ()=>{
-              fetch(`http://127.0.0.1:3000/longtexts/${longtext.id}/approve/${localStorage.id}`,
+              fetch(`https://kuankua-api.herokuapp.com/longtexts/${longtext.id}/approve/${localStorage.id}`,
                 {
                   method: "POST",
                   headers: {
@@ -2302,14 +2302,14 @@ newDirectoryForm.innerHTML =
     console.log(newDirectory)
     console.log("NEW DIRECTORY FORM")
 
-    fetch("http://127.0.0.1:3000/directories",{
+    fetch("https://kuankua-api.herokuapp.com/directories",{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         },
       body: JSON.stringify(newDirectory)
     }).then(_=>{
-      fetch("http://127.0.0.1:3000/directories")
+      fetch("https://kuankua-api.herokuapp.com/directories")
       .then(r => r.json())
       .then(directories => {
         resetMainContent()
@@ -2956,7 +2956,7 @@ function renderEditProfile(user){
       avatar_address: user.avatar_address}
     }
   
-    fetch(`http://127.0.0.1:3000/users/${user.id}`, {
+    fetch(`https://kuankua-api.herokuapp.com/users/${user.id}`, {
       method: "PATCH",
       headers: {
           "Content-Type": "application/json",
