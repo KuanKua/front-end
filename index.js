@@ -412,11 +412,9 @@ loginForm.innerHTML = `<img style="display: block;width:130px; margin-left: auto
 </div>
 <div class="form-group">
 <div class="col-sm-offset-2 col-sm-10">
-  <div class="checkbox">
-    <label><input type="checkbox"> Remember me</label>
-  </div>
 </div>
 </div>
+<br><br>
 <div class="form-group">
 <div class="col-sm-offset-2 col-sm-10">
   <button type="submit" class="btn btn-default" style="background-color: #000000; color: #ffffff;">Log In</button>
@@ -450,10 +448,11 @@ loginForm.addEventListener('submit', (event)=>{
         renderLoggedInNavBar(user.user)
         //newDirectoryFormSetup(data.id)
         renderUserProfile(user.user)
+        navbarLogin.textContent = "Log Out"
+    navbarSignup.remove()
     })
 
-    navbarLogin.textContent = "Log Out"
-    navbarSignup.remove()
+    
 
     loginForm.reset()
 })
@@ -1402,61 +1401,10 @@ function renderDirectories(directories){
           fetch(`http://127.0.0.1:3000/words/${word.id}/votes/${localStorage.id}`)
           .then(r => r.json())
           .then(data => {
-            
             cell11.innerHTML = `${data.votes}`
-            let lastValue = data.last_value
-            console.log(lastValue)
             let approveButton = cell12.querySelector("#approveBtn")
-
-            if (lastValue === "Approved"){
-              approveButton.textContent = "Disapprove" 
-                approveButton.style.fontSize = "10px"
-                approveButton.style.padding = "2px"
-                approveButton.style.borderRadius = "6px"
-                approveButton.style.color = "black"
-                approveButton.style.borderColor = "black"
-                approveButton.style.fontWeight = "bold"
-            } else if (lastValue === "Disapproved"){
-              approveButton.textContent = "Approve"
-                approveButton.style.borderRadius = "6px"
-                approveButton.style.fontSize = "10px"
-                approveButton.style.padding = "2px"
-                approveButton.style.color = "black"
-                approveButton.style.borderColor = "black"
-                approveButton.style.fontWeight = "bold"
-            }
-
             approveButton.addEventListener('click', ()=>{
-              console.log("At least here")
-              if (lastValue == "Approved"){
-                approveButton.textContent = "Approve" 
-                approveButton.style.fontSize = "10px"
-                approveButton.style.padding = "2px"
-                approveButton.style.borderRadius = "6px"
-                approveButton.style.color = "black"
-                approveButton.style.borderColor = "black"
-                approveButton.style.fontWeight = "bold"
-                console.log("HERE")
-                fetch(`http://127.0.0.1:3000/words/${word.id}/disapprove/${localStorage.id}`,
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json"
-                    }
-                  }
-                )
-  
-              cell11.textContent = parseInt(cell11.textContent) - 1
-              } else {
-                approveButton.textContent = "Disapprove"
-                approveButton.style.borderRadius = "6px"
-                approveButton.style.fontSize = "10px"
-                approveButton.style.padding = "2px"
-                approveButton.style.color = "black"
-                approveButton.style.borderColor = "black"
-                approveButton.style.fontWeight = "bold"
-  
-                fetch(`http://127.0.0.1:3000/words/${word.id}/approve/${localStorage.id}`,
+              fetch(`http://127.0.0.1:3000/words/${word.id}/approve/${localStorage.id}`,
                 {
                   method: "POST",
                   headers: {
@@ -1466,9 +1414,65 @@ function renderDirectories(directories){
               )
   
               cell11.textContent = parseInt(cell11.textContent) + 1
-              }
             })
           })
+            
+            //let lastValue = data.last_value
+            //console.log(lastValue)
+            
+
+            // if (lastValue === "Approved"){
+            //   approveButton.textContent = "Disapprove" 
+            //     approveButton.style.fontSize = "10px"
+            //     approveButton.style.padding = "2px"
+            //     approveButton.style.borderRadius = "6px"
+            //     approveButton.style.color = "black"
+            //     approveButton.style.borderColor = "black"
+            //     approveButton.style.fontWeight = "bold"
+            // } else if (lastValue === "Disapproved"){
+            //   approveButton.textContent = "Approve"
+            //     approveButton.style.borderRadius = "6px"
+            //     approveButton.style.fontSize = "10px"
+            //     approveButton.style.padding = "2px"
+            //     approveButton.style.color = "black"
+            //     approveButton.style.borderColor = "black"
+            //     approveButton.style.fontWeight = "bold"
+            // }
+
+            
+              // console.log("At least here")
+              // if (lastValue == "Approved"){
+              //   approveButton.textContent = "Approve" 
+              //   approveButton.style.fontSize = "10px"
+              //   approveButton.style.padding = "2px"
+              //   approveButton.style.borderRadius = "6px"
+              //   approveButton.style.color = "black"
+              //   approveButton.style.borderColor = "black"
+              //   approveButton.style.fontWeight = "bold"
+              //   console.log("HERE")
+              //   fetch(`http://127.0.0.1:3000/words/${word.id}/disapprove/${localStorage.id}`,
+              //     {
+              //       method: "POST",
+              //       headers: {
+              //         "Content-Type": "application/json"
+              //       }
+              //     }
+              //   )
+  
+              // cell11.textContent = parseInt(cell11.textContent) - 1
+              // } else {
+                // approveButton.textContent = "Disapprove"
+                // approveButton.style.borderRadius = "6px"
+                // approveButton.style.fontSize = "10px"
+                // approveButton.style.padding = "2px"
+                // approveButton.style.color = "black"
+                // approveButton.style.borderColor = "black"
+                // approveButton.style.fontWeight = "bold"
+  
+                
+              //}
+
+          
         
           ///
         })
@@ -1641,32 +1645,26 @@ function renderDirectories(directories){
           let cell12 = row.insertCell(12)
           cell12.innerHTML = `<button style="padding: 2px; font-size: 10px; color: black; border-radius: 6px; border-color: black; font-weight: bold;" id="approveBtn">Approve</button>`
           
-          let approveButton = cell12.querySelector("#approveBtn")
-          approveButton.addEventListener('click', ()=>{
+          //let approveButton = cell12.querySelector("#approveBtn")
 
-            if (approveButton.textContent === "Approve"){
-              approveButton.textContent = "Disapprove" 
-              approveButton.style.fontSize = "10px"
-              approveButton.style.padding = "2px"
-              approveButton.style.borderRadius = "6px"
-              approveButton.style.color = "black"
-              approveButton.style.borderColor = "black"
-              approveButton.style.fontWeight = "bold"
-
-            cell11.textContent = parseInt(cell11.textContent) + 1
-            } else {
-              approveButton.textContent = "Approve"
-              approveButton.style.borderRadius = "6px"
-              approveButton.style.fontSize = "10px"
-              approveButton.style.padding = "2px"
-              approveButton.style.color = "black"
-              approveButton.style.borderColor = "black"
-              approveButton.style.fontWeight = "bold"
-
-            cell11.textContent = parseInt(cell11.textContent) - 1
-            }
+          fetch(`http://127.0.0.1:3000/phrases/${phrase.id}/votes/${localStorage.id}`)
+          .then(r => r.json())
+          .then(data => {
+            cell11.innerHTML = `0`
+            let approveButton = cell12.querySelector("#approveBtn")
+            approveButton.addEventListener('click', ()=>{
+              fetch(`http://127.0.0.1:3000/phrases/${phrase.id}/approve/${localStorage.id}`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  }
+                }
+              )
+  
+              cell11.textContent = parseInt(cell11.textContent) + 1
+            })
           })
-
         })
 
         mainContent.append(directoryElement)
@@ -1829,30 +1827,23 @@ function renderDirectories(directories){
           let cell11 = row.insertCell(11)
           cell11.innerHTML = `<button style="padding: 2px; font-size: 10px; color: black; border-radius: 6px; border-color: black; font-weight: bold;" id="approveBtn">Approve</button>`
           
-          let approveButton = cell11.querySelector("#approveBtn")
-          approveButton.addEventListener('click', ()=>{
-
-            if (approveButton.textContent === "Approve"){
-              approveButton.textContent = "Disapprove" 
-              approveButton.style.fontSize = "10px"
-              approveButton.style.padding = "2px"
-              approveButton.style.borderRadius = "6px"
-              approveButton.style.color = "black"
-              approveButton.style.borderColor = "black"
-              approveButton.style.fontWeight = "bold"
-
-            cell10.textContent = parseInt(cell10.textContent) + 1
-            } else {
-              approveButton.textContent = "Approve"
-              approveButton.style.borderRadius = "6px"
-              approveButton.style.fontSize = "10px"
-              approveButton.style.padding = "2px"
-              approveButton.style.color = "black"
-              approveButton.style.borderColor = "black"
-              approveButton.style.fontWeight = "bold"
-
-            cell10.textContent = parseInt(cell10.textContent) - 1
-            }
+          fetch(`http://127.0.0.1:3000/characters/${character.id}/votes/${localStorage.id}`)
+          .then(r => r.json())
+          .then(data => {
+            cell10.innerHTML = `0`
+            let approveButton = cell11.querySelector("#approveBtn")
+            approveButton.addEventListener('click', ()=>{
+              fetch(`http://127.0.0.1:3000/characters/${character.id}/approve/${localStorage.id}`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  }
+                }
+              )
+  
+              cell10.textContent = parseInt(cell10.textContent) + 1
+            })
           })
         })
 
@@ -1994,30 +1985,23 @@ function renderDirectories(directories){
           let cell7 = row.insertCell(7)
           cell7.innerHTML = `<button style="padding: 2px; font-size: 10px; color: black; border-radius: 6px; border-color: black; font-weight: bold;" id="approveBtn">Approve</button>`
           
-          let approveButton = cell7.querySelector("#approveBtn")
-          approveButton.addEventListener('click', ()=>{
-
-            if (approveButton.textContent === "Approve"){
-              approveButton.textContent = "Disapprove" 
-              approveButton.style.fontSize = "10px"
-              approveButton.style.padding = "2px"
-              approveButton.style.borderRadius = "6px"
-              approveButton.style.color = "black"
-              approveButton.style.borderColor = "black"
-              approveButton.style.fontWeight = "bold"
-
-            cell6.textContent = parseInt(cell6.textContent) + 1
-            } else {
-              approveButton.textContent = "Approve"
-              approveButton.style.borderRadius = "6px"
-              approveButton.style.fontSize = "10px"
-              approveButton.style.padding = "2px"
-              approveButton.style.color = "black"
-              approveButton.style.borderColor = "black"
-              approveButton.style.fontWeight = "bold"
-
-            cell6.textContent = parseInt(cell6.textContent) - 1
-            }
+          fetch(`http://127.0.0.1:3000/sentences/${sentence.id}/votes/${localStorage.id}`)
+          .then(r => r.json())
+          .then(data => {
+            cell6.innerHTML = `0`
+            let approveButton = cell7.querySelector("#approveBtn")
+            approveButton.addEventListener('click', ()=>{
+              fetch(`http://127.0.0.1:3000/sentences/${sentence.id}/approve/${localStorage.id}`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  }
+                }
+              )
+  
+              cell6.textContent = parseInt(cell6.textContent) + 1
+            })
           })
         })
 
@@ -2160,30 +2144,23 @@ function renderDirectories(directories){
           let cell7 = row.insertCell(7)
           cell7.innerHTML = `<button style="padding: 2px; font-size: 10px; color: black; border-radius: 6px; border-color: black; font-weight: bold;" id="approveBtn">Approve</button>`
           
-          let approveButton = cell7.querySelector("#approveBtn")
-          approveButton.addEventListener('click', ()=>{
-
-            if (approveButton.textContent === "Approve"){
-              approveButton.textContent = "Disapprove" 
-              approveButton.style.fontSize = "10px"
-              approveButton.style.padding = "2px"
-              approveButton.style.borderRadius = "6px"
-              approveButton.style.color = "black"
-              approveButton.style.borderColor = "black"
-              approveButton.style.fontWeight = "bold"
-
-            cell6.textContent = parseInt(cell6.textContent) + 1
-            } else {
-              approveButton.textContent = "Approve"
-              approveButton.style.borderRadius = "6px"
-              approveButton.style.fontSize = "10px"
-              approveButton.style.padding = "2px"
-              approveButton.style.color = "black"
-              approveButton.style.borderColor = "black"
-              approveButton.style.fontWeight = "bold"
-
-            cell6.textContent = parseInt(cell6.textContent) - 1
-            }
+          fetch(`http://127.0.0.1:3000/longtexts/${longtext.id}/votes/${localStorage.id}`)
+          .then(r => r.json())
+          .then(data => {
+            cell6.innerHTML = `0`
+            let approveButton = cell7.querySelector("#approveBtn")
+            approveButton.addEventListener('click', ()=>{
+              fetch(`http://127.0.0.1:3000/longtexts/${longtext.id}/approve/${localStorage.id}`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  }
+                }
+              )
+  
+              cell6.textContent = parseInt(cell6.textContent) + 1
+            })
           })
         })
 
@@ -2992,8 +2969,7 @@ function renderEditProfile(user){
       .then(user => {
           alert("Successfully edited profile!")
           resetMainContent()
-          renderLoggedInNavBar(user)
-          renderUserProfile(user)
+          location.reload()
       })
   }) 
 
