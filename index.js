@@ -321,7 +321,7 @@ function renderUserProfile(user){
             "Authorization": `Bearer ${localStorage.token}`
           }
         }).then(_ => {
-          location.reload()
+          //location.reload()
         })
       })
     }
@@ -510,8 +510,8 @@ function logOut(){
   })
 
  */
-  localStorage.clear()
-  location.reload()
+  //localStorage.clear()
+  //location.reload()
 
 }
 
@@ -569,7 +569,7 @@ function renderLoggedInNavBar(user){
                 renderUserProfile(user)
                 console.log(user)
             }) */
-            location.reload()
+            //location.reload()
 
         })
     
@@ -862,7 +862,7 @@ signupForm.addEventListener('submit', (event) => {
         localStorage.token = user.token
         localStorage.id = user.user.id
         resetMainContent()
-        location.reload()
+        //location.reload()
     })
 
     signupForm.reset()
@@ -2969,7 +2969,7 @@ function renderEditProfile(user){
       .then(user => {
           alert("Successfully edited profile!")
           resetMainContent()
-          location.reload()
+          //location.reload()
       })
   }) 
 
